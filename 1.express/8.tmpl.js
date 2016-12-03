@@ -15,4 +15,8 @@ app.get('/',function(req,res){
   res.render('user',{users:users});
 });
 
+app.all('*',function(req,res){
+  res.redirect('/');
+});
+
 app.listen(9090);
