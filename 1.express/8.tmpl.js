@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var app = express();
+app.use(express.static(path.resolve('../node_modules')));
 var users = [{id:1,name:'zfpx1'},{id:2,name:'zfpx2'}];
 //设置模板引擎
 app.set('view engine','ejs');
