@@ -14,14 +14,14 @@ app.get('/about',function(req,res){
     res.end('关于我们');
 });
 //不关心方法名，能匹配所有的方法，只匹配路径即可
-app.all('/home',function(req,res){
+/*app.all('/home',function(req,res){
     res.setHeader('Content-Type','text/html;charset=utf-8');
     res.end('回家');
 });
 app.get('*',function(req,res){
     res.setHeader('Content-Type','text/html;charset=utf-8');
     res.end('星星照我回家');
-});
+});*/
 app.listen(8080);
 
 /*
