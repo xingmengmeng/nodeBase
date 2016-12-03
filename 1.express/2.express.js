@@ -10,9 +10,9 @@ app.use(function(req,res,next){
     res.setHeader('Content-Type','text/html;charset=utf-8');
     next();//如果调用next表示 继续执行，如果不调用next则不继续 执行
 });
-function log(req,res,next){
+function log(req,res,xx){
     console.log(req.url);
-    next();
+    xx();
 }
 //如果客户端是以get方法向服务器发送 /路径请求的话，由第二个参数来进行处理
 //这就是一个路由的规则

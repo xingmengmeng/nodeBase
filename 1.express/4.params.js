@@ -1,6 +1,17 @@
 var express = require('express');
+var url = require('url');
 var log = console.log;
 var app = express();
+/**
+ * 1.中间间可以用来增加公有方法和属性
+ */
+app.use(function(req,res,next){
+  var urlObj = url.parse(req.url,true);
+  req.path = urlObj.pathname;
+  req.query = urlObj.query;
+  res.end('不往下走了');
+  //next();
+});
 /**
  * 1.获取请求方法，请求的路径名，请求的查询字符串对象
  * 2.请求头
