@@ -5,8 +5,11 @@ function express(){
     for(var i=0;i<app.routes.length;i++){
         //取出当前的配置对象
         var layer = app.routes[i];
+        if(layer.type == 'MIDDLE'){
+            layer.callback(req,res);
+        }
         //如果此配置对象的方法名和请求方法相同
-        if((layer.method == 'ALL')||(layer.method == req.method)){
+        else if((layer.method == 'ALL')||(layer.method == req.method)){
             if((layer.url == '*')||(layer.url == req.url)){
                 layer.callback(req,res);
                 break;
@@ -18,6 +21,9 @@ function express(){
   app.routes = [];
   app.get = function(url,callback){
     app.routes.push({method:'GET',url:url,callback:callback});
+  }
+  app.use= function (callback){
+      app.routes.push({type:'MIDDLE',callback:callback});
   }
   app.all = function(url,callback){
       app.routes.push({method:'ALL',url:url,callback:callback});
