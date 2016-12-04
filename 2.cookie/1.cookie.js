@@ -10,7 +10,7 @@ http.createServer(function(req,res){
    var pathname = urlObj.pathname;
    if(pathname == '/write'){//服务器向客户端写cookie
        //通过响应头Set-Cookie设置cookie
-       res.setHeader('Set-Cookie','name=zfpx');
+       res.setHeader('Set-Cookie',['name=zfpx2','age=9']);
        res.end('ok');
    }else if(pathname == '/read'){//客户端向服务器发送cookie
        //headers的所有属性全部为小写
