@@ -2,10 +2,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var app = express();
 app.use(cookieParser());
+app.use(session({
+    secret:'zfpx',
+    resave:true,
+    saveUninitialized:true
+}));
 //处理请求体格式为 application/x-www-form-urlencoded
-//都是把请求体对象加到 req.body上
+//都是把请求体对象加到 req.body上 username=11&password=222->{username:11,password:222}
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 //设置模板引擎为html,当你不输入模板后缀的时候，会自动添加此后缀 去查找模板文件
@@ -24,18 +30,17 @@ app.engine('.html',require('ejs').__express);
 var users = [];
 //注册
 app.get('/signup',function(req,res){
-    res.render('signup',{error:''});
+    res.render('signup',{error:req.session.error});
 });
 // 处理注册表单的post提交
 app.post('/signup',function(req,res){
-    var user = req.body;
-    console.log(user);
+    var user = req.body; //{username:11,password:222}
     var oldUser = users.find(function(item){
         return item.username == user.username;
     })
     if(oldUser){
-        res.cookie('error','此用户名已经被占用，请换个新的试试吧');
-        res.redirect('/signup');
+        req.session.error = '此用户名已经被占用，请换个新的试试吧';
+        res.redirect('/signup');// get
     }else{
         users.push(user);
         res.redirect('/signin');
