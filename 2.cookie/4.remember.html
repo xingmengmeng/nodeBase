@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="fill()">
+<form action="">
+    用户名<input type="text" name="username" id="username">
+</form>
+<script>
+function getCookie(key){
+   var cookie = document.cookie;
+   var cookies = cookie.split('; ');
+   for(var i=0;i<cookies.length;i++){
+       if(cookies[i].split('=')[0] == key){
+            return cookies[i].split('=')[1];
+       }
+   }
+}
+function fill(){
+  //先从 cookie中获得用户名 username=aaa; age=8
+  var username = getCookie('username');
+  //如果取到了则把它填充到输入框中
+  if(username){
+      document.querySelector('#username').value = username;
+  }else{
+      //如果没取到，那弹出一个输入框输入用户名，然后写入文件框和cookie
+      var username = prompt('请输入用户名');
+      document.querySelector('#username').value = username;
+      setCookie('username',username);
+  }
+}
+function setCookie(key,value){
+    document.cookie = `${key}=${value}`;
+}
+</script>
+</body>
+</html>
