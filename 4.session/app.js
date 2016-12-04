@@ -7,6 +7,7 @@ var SESSIONS = {};
 app.get('/cut',function(req,res){
     var oldVipId = req.cookies[SESSION_KEY];
     if(oldVipId){
+        //sessionObj 就是此客户端 在服务器存储数据对象
         var sessionObj = SESSIONS[oldVipId];
         if(sessionObj){
             sessionObj.money -= 10;
