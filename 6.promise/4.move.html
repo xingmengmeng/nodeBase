@@ -41,6 +41,11 @@
   var ball1 = document.querySelector('.ball1');
   var ball2 = document.querySelector('.ball2');
   var ball3 = document.querySelector('.ball3');
+  //不管当前的页面中有多少个球，全部都移动
+  //不允许用回调，使用promise实现
+  function start(){
+
+  }
   move(ball1,100,function(){
       move(ball2,100,function(){
           move(ball3,100);
