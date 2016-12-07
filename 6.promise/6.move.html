@@ -52,12 +52,18 @@
       index++;//1
   }while(index < len)// 3*/
 
-  while(index < len){
+ /* while(index < len){
         ~function(index){
             currPromise = currPromise.then(function(){
                 return move(balls[index],100);
             });
         }(index++);
+  }*/
+
+  while(index < len-1){
+       currPromise = currPromise.then(function(ball){
+              return move(ball,100);
+       }.bind(null,balls[++index]));
   }
 
 </script>
