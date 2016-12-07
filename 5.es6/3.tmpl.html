@@ -9,29 +9,57 @@
 
 </ul>
 <button onclick="load()">加载</button>
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script>
 //使用ajax调用一个接口 http://localhost:3000/users，返回一个json数组
 // [{"id":1,"name":"zfpx1"},{"id":2,"name":"zfpx2"}]
 // 把此JSON数组转成li数组并放置到ul内部
+function ajax({method,url}){
+   return new Promise(function(resolve,reject){
+       var xhr = new XMLHttpRequest();
+       xhr.open(method,url,true);
+       //responseType决定了response的类型
+       xhr.responseType = 'json';
+       xhr.onreadystatechange = function(){
+           //响应内容获取完毕状态为4
+           if(xhr.readyState == 4){
+               if(xhr.status == 200){
+                   resolve(xhr.response);
+               }
+           }
+       }
+       xhr.send();
+   });
+}
 function load(){
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET','http://localhost:3000/users',true);
-    //responseType决定了response的类型
-    xhr.responseType = 'json';
-    xhr.onreadystatechange = function(){
-        //响应内容获取完毕状态为4
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                var users = xhr.response;
-                document.querySelector('#users').innerHTML = users.map(function(user){
-                    return `<li>
+  /*  $.ajax({
+        url:'http://localhost:3000/users',
+        method:'GET'
+    }).then(function(users){
+        document.querySelector('#users').innerHTML = users.map(function(user){
+            return `<li>
                                 ${user.id}:${user.name}
                             </li>`;
-                }).join('');
-            }
-        }
-    }
-    xhr.send();
+        }).join('');
+    })*/
+    $.ajax({
+        url:'http://localhost:3000/users',
+        method:'GET',
+        success:function(users){
+            console.log('users',users);
+       }
+    }).done(function(users){
+        document.querySelector('#users').innerHTML = users.map(function(user){
+            return `<li>
+                                ${user.id}:${user.name}
+                            </li>`;
+        }).join('');
+    }).fail(function(error){console.log(error);}).always(function(){
+        console.log('不管成功失败都要调我');
+    });
+
+
 }
 </script>
 </body>
