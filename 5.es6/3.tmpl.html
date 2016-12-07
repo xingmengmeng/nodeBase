@@ -24,7 +24,9 @@ function load(){
             if(xhr.status == 200){
                 var users = xhr.response;
                 document.querySelector('#users').innerHTML = users.map(function(user){
-                    return `<li>${user.id}:${user.name}</li>`;
+                    return `<li>
+                                ${user.id}:${user.name}
+                            </li>`;
                 }).join('');
             }
         }
