@@ -11,7 +11,6 @@ function Promise(task){
         this._fail(error);
     }
     task(resolve,reject);
-
 }
 Promise.prototype.then = function(success,fail){
   this._success = success;
