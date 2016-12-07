@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ball{
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+        }
+        .ball1{background-color: red}
+        .ball2{background-color: yellow}
+        .ball3{background-color: blue}
+    </style>
+</head>
+<body>
+<div class="ball ball1" style="margin-left:0px"></div>
+<div class="ball ball2" style="margin-left:0px"></div>
+<div class="ball ball3" style="margin-left:0px"></div>
+<div class="ball ball3" style="margin-left:0px"></div>
+<script>
+  /**
+     * @param element 移动的元素
+     * @param target 移动到的目的地
+     * @param cb 回调函数
+     */
+
+  function move(ball,target){
+       return new Promise(function(resolve,reject){
+           ball.timer = setInterval(function(){
+               var currLeft = parseInt(ball.style.marginLeft);
+               if(currLeft<target){
+                   ball.style.marginLeft = (++currLeft)+'px';
+               }else{
+                   clearInterval(ball.timer);
+                   resolve();
+               }
+           },13)
+       });
+  }
+  var balls = document.querySelectorAll('.ball');
+  var len = balls.length; // 3
+  var index = 0;
+  var currPromise = move(balls[index],100);
+/*  do{
+      ~function(index){
+          currPromise = currPromise.then(function(){
+              return move(balls[index],100);
+          });
+      }(index);
+      index++;//1
+  }while(index < len)// 3*/
+
+  while(index < len){
+        ~function(index){
+            currPromise = currPromise.then(function(){
+                return move(balls[index],100);
+            });
+        }(index++);
+  }
+
+</script>
+</body>
+</html>

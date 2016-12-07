@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ball{
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+        }
+        .ball1{background-color: red}
+        .ball2{background-color: yellow}
+        .ball3{background-color: blue}
+    </style>
+</head>
+<body>
+<div class="ball ball1" style="margin-left:0px"></div>
+<div class="ball ball2" style="margin-left:0px"></div>
+<div class="ball ball3" style="margin-left:0px"></div>
+<div class="ball ball3" style="margin-left:0px"></div>
+<script>
+  /**
+     * @param element 移动的元素
+     * @param target 移动到的目的地
+     * @param cb 回调函数
+     */
+
+  function move(balls,target){
+      var index = 0;
+      var ball = balls[index];
+      var timer = setInterval(function(){
+          var currLeft = parseInt(ball.style.marginLeft);
+          if(currLeft<target){
+              ball.style.marginLeft = (++currLeft)+'px';
+          }else{
+              ball = balls[++index];
+              if(index>=balls.length)
+                  clearInterval(timer);
+          }
+      },13);
+  }
+  var balls = document.querySelectorAll('.ball');
+  move(balls,100);
+</script>
+</body>
+</html>
