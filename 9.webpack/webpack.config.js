@@ -5,6 +5,11 @@ module.exports = {
         path:'./build', //指定输出的目录
         filename:'bundle.js' //指定输出的文件名
     },
+    // npm install webpack-dev-server --save-dev
+    devServer:{
+       port:8080,//指定端口号
+       contentBase:'./build'//指定静态文件根目录
+    },
     //配置模块
     module:{
         loaders:[

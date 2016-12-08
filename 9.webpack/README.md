@@ -1,4 +1,4 @@
-## 编写顺序 
+## webpack编写顺序 
 1. 本地安装 webpack
 ```
 npm install webpack
@@ -14,3 +14,5 @@ npm install webpack
 5.在命令执行npm run build
 6.执行脚本的时候，会在当前目录下的node_modules下.bin目录下找 webpack.cmd可执行文件并执行
 7. 执行的时候会找webpack.config.js文件，找到入口文件，把入口文件和它依赖的所有文件全部打包到指定的目录下指定的文件名中去。
+
+## webpack-dev-server
