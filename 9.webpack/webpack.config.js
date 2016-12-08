@@ -12,6 +12,13 @@ module.exports = {
                 test:/\.js$/,//如果文件名符合正则
 // npm install babel-loader babel-core --save-dev
                 loader:'babel'//使用babel加载器
+            },
+ // npm install css-loader style-loader --save-dev
+            {
+                test:/\.css$/,
+//用到二个loader,style-loader css-loader
+//执行的时候从右向左执行
+                loader:'style!css'
             }
         ]
     }
