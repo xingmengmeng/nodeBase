@@ -1,3 +1,8 @@
+//自动产出html插件
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+//自动打开浏览器的插件
+var OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin');
+// npm install html-webpack-plugin open-browser-webpack-plugin --save-dev
 module.exports = {
     //指定入口文件 要把哪个文件以及它依赖的文件打包成一个文件
     entry:'./app/index.js',
@@ -28,5 +33,17 @@ module.exports = {
                 loader:'style!css'
             }
         ]
-    }
+    },
+    plugins:[
+        //创建一个自动产出html的插件
+        new HtmlWebpackPlugin({
+            //指定生成依据的模板
+            template:'./app/index.html'
+        }),
+        //创建一个自动打开浏览器的插件
+        new OpenBrowserWebpackPlugin({
+            url:'http://localhost:8080'
+        })
+
+    ]
 }
