@@ -6,7 +6,9 @@ module.exports = {
         filename:'bundle.js' //指定输出的文件名
     },
     // npm install webpack-dev-server --save-dev
+    //服务启动时会自动打包，但是打包到内存里的，直接访问可以返回，但硬盘上看不见
     devServer:{
+       inline:true,//当源代码改变之后，会自动重新打包并刷新浏览器
        port:8080,//指定端口号
        contentBase:'./build'//指定静态文件根目录
     },
