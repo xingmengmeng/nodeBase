@@ -1,2 +1,3 @@
-var hello = require('./component.js');
-document.write(hello);
+//var hello = require('./component.js');
+import {name} from './component.js';
+document.write(name);

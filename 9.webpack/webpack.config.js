@@ -4,5 +4,15 @@ module.exports = {
     output:{//指定输出的文件目录和文件名
         path:'./build', //指定输出的目录
         filename:'bundle.js' //指定输出的文件名
+    },
+    //配置模块
+    module:{
+        loaders:[
+            {
+                test:/\.js$/,//如果文件名符合正则
+// npm install babel-loader babel-core --save-dev
+                loader:'babel'//使用babel加载器
+            }
+        ]
     }
 }
