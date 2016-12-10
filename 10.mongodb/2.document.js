@@ -1,16 +1,29 @@
 var model = {
    data:[{id:1,age:1},{id:2,age:2},{id:3,age:3},{id:4,age:4},{id:5,age:5},{id:6,age:6},{id:7,age:7},{id:8,age:8},{id:9,age:9},{id:10,age:10}],
-    skip(){
-
+    skip(skip){
+        this._skip = skip;
+        return this;
     },
-    limit(){
-
+    limit(limit){
+       this._limit = limit;
+       return this;
     },
-    sort(){
+    sort(sortObj){// {age:1}
+        var attr = Object.keys(sortObj)[0]||'age';
+        this._sort = function(a,b){
+            if(typeof a[attr] == 'number'){
+                return (a[attr]-b[attr])*sortObj[attr];
+            }else{
+                return (a[attr].localeCompare(b[attr]))*sortObj[attr];
+            }
 
+        }
+        return this;
     },
     exec(callback){
-
+        var result = this.data.sort(this._sort).slice(this._skip,this._skip+this._limit);
+        callback(null,result);
+        return this;
     }
 }
 
