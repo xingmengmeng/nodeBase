@@ -53,14 +53,44 @@ PersonModel.update({age:2,name:'zfpx2'},{
 //第二个参数 可以写包含的字段或排除的字段 name表示字段名， 1要返回
 //BadValue Projection cannot have a mix of inclusion and exclusion.
 /*PersonModel.find({},{name:0},function(err,docs){
-    console.log(docs);
+    console.  log(docs);
 });*/
 
 //findOne找到一条后就返回，不再继续查找了
+/*
 PersonModel.findOne({_id:'584b866c531c90e19e3f0d8e'},function(err,doc){
     console.log(doc);
 });
 
 PersonModel.findById('584b866c531c90e19e3f0d8e',function(err,doc){
     console.log(doc);
+});*/
+/**
+ * 更新后的值可以
+ * $set 直接指定更新后的值
+ * $inc 在原有的基础上递增
+ */
+/*
+PersonModel.update({name:'zfpx1'},{
+    $set:{age:100}
+},function(err,result){
+    console.log(err);
+    console.log(result);
+});*/
+
+/**
+ * 复杂查询 分页查询
+ *  一共10条数据
+ *  每页3条，要查询第2页的数据
+ */
+//每页的条数
+var pageSize = 3;
+//要取第几页的数据
+var pageNum = 3;
+//skip跳过指定的条件 exec表示执行此查询
+// age 1 表示正序排列 age -1 表示倒叙排列
+PersonModel.find().skip(pageSize*(pageNum-1)).limit(pageSize).sort({
+    age:-1
+}).exec(function(err,docs){
+  console.log(docs);
 });
