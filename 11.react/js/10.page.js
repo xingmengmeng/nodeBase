@@ -23,13 +23,13 @@ var Pagination = React.createClass({
     render(){
         var pages = [];
         if(this.state.pageNum>1){
-            pages.push(<li><a href="#">上一页</a></li>);
+            pages.push(<li key={-1}><a href="#">上一页</a></li>);
         }
         for(var i=1;i<=this.props.totalPages;i++){
-            pages.push(<li className={i == this.state.pageNum?'active':''}><a href="#">{i}</a></li>);
+            pages.push(<li key={i} className={i == this.state.pageNum?'active':''}><a href="#">{i}</a></li>);
         }
         if(this.state.pageNum<this.props.totalPages){
-            pages.push(<li><a href="#">下一页</a></li>);
+            pages.push(<li key={-2}><a href="#">下一页</a></li>);
         }
         return (
             <nav>
