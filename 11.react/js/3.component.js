@@ -9,8 +9,9 @@ var MessageBox = React.createClass({
      * 它表示使用此组件的时候此组件将要被如何渲染
      */
    render(){
+       console.log('render');
        return <div>hello</div>;
    }
 });
-
+//只有在render的时候，才会创建一个自定组件的实例，并且调用它的render方法，得到返回的虚拟DOM，再成真实DOM插入DOM容器
 ReactDOM.render(<MessageBox></MessageBox>,document.getElementById('app'))
