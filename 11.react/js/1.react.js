@@ -17,4 +17,4 @@ function render(domObj,ele) {
  * 2.此处的xml写的是虚拟DOM,真正渲染的时候并不是直接把它转成字符串放在app内部。而是转成一个JS数据结构
  * 3.在渲染的时候会根据这个数据结构渲染出真正的DOM元素放到容器的内部
  */
-render({tagName:'h1',text:'hello'},document.getElementById('app'));
+render({tagName:'h1',text:'hello',attr:{key:1},style:style},document.getElementById('app'));
