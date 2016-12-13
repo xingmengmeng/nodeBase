@@ -9,20 +9,21 @@ var model = {
        return this;
     },
     sort(sortObj){// {age:1}
-        var attr = Object.keys(sortObj)[0]||'age';
+        var attr = Object.keys(sortObj)[0]||'age';//["age"]
         this._sort = function(a,b){
             if(typeof a[attr] == 'number'){
                 return (a[attr]-b[attr])*sortObj[attr];
             }else{
                 return (a[attr].localeCompare(b[attr]))*sortObj[attr];
             }
-
         }
         return this;
     },
     exec(callback){
-        var result = this.data.sort(this._sort).slice(this._skip,this._skip+this._limit);
-        callback(null,result);
+        process.nextTick(()=>{
+            var result = this.data.sort(this._sort).slice(this._skip,this._skip+this._limit);
+            callback(null,result);
+        })
         return this;
     }
 }
@@ -31,8 +32,8 @@ var model = {
 var pageSize = 3;
 //要取第几页的数据
 var pageNum = 3;
-model.skip(pageSize*(pageNum-1)).limit(pageSize).sort({
+model.exec(function(err,docs){
+    console.log(docs);// 4 3 2
+}).skip(pageSize*(pageNum-1)).limit(pageSize).sort({
         age:-1
-}).exec(function(err,docs){
-        console.log(docs);// 4 3 2
 });
