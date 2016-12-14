@@ -1,32 +1,32 @@
 // index.js
 import React from 'react';
 import { render } from 'react-dom';
-import Slider from './Slider/Slider';
+import Banner from './Banner';
 
 const IMAGE_DATA = [
     {
-        src: require('./images/demo1.jpg'),
-        alt: 'images-1',
+        src: require('./images/banner1.jpg'),
+        alt: 'banner1',
     },
     {
-        src: require('./images/demo2.jpg'),
-        alt: 'images-2',
+        src: require('./images/banner2.jpg'),
+        alt: 'banner2',
     },
     {
-        src: require('./images/demo3.jpg'),
-        alt: 'images-3',
+        src: require('./images/banner3.jpg'),
+        alt: 'banner3',
     },
 ];
 
 render(
     <Slider
-        items={IMAGE_DATA}
-        speed={1.2}
-        delay={2.1}
-        pause={true}
-        autoplay={true}
-        dots={true}
-        arrows={true}
+        items={IMAGE_DATA} //图片数据
+        speed={1.2} //图片切换的速度(单位是秒)
+        delay={2.1} //每隔多少秒切换一次
+        pause={true} //鼠标移上去是否自动暂停
+        autoplay={true}//是否自动播放
+        dots={true} //是否显示导航小点
+        arrows={true}//是否显示上一张和下一张箭头
     />,
     document.getElementById('root')
 );
