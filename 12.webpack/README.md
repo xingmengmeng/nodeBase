@@ -88,3 +88,15 @@ plugins:[
 ]
  
 ```
+
+## 4. react
+在.babelrc里增加预设
+```
+{
+  "presets":["es2015","react"]
+}
+```
+安装预设
+```
+npm install babel-preset-react --save-dev
+```
