@@ -2,4 +2,6 @@ require('bootstrap/dist/css/bootstrap.css');
 import CommentBox from './CommentBox';
 import React from 'react';
 import ReactDOM from 'react-dom';
-ReactDOM.render(<CommentBox/>,document.getElementById('app'))
+//这是一个工具模块，用来实现将数据保存在localStorage里
+var store = require('./local');
+ReactDOM.render(<CommentBox store={store}/>,document.getElementById('app'))

@@ -1,4 +1,7 @@
 import React,{Component} from 'react';
+require('moment/locale/zh-cn.js');
+import moment from 'moment';
+
 export default class CommentList extends Component{
    render(){
        //this.deleteComment.bind(this,item.id)
@@ -7,7 +10,7 @@ export default class CommentList extends Component{
                {
                    this.props.comments.map((item,index)=>{
                         return <li key={index} className="list-group-item">
-                            {item.name}:{item.content}  <span className="pull-right">{item.createAt.toLocaleString()}<button className="btn btn-danger btn-xs" onClick={()=>this.props.deleteComment(item.id)}>删除</button></span>
+                            {item.name}:{item.content}  <span className="pull-right">{moment(item.createAt).fromNow()}<button className="btn btn-danger btn-xs" onClick={()=>this.props.deleteComment(item.id)}>删除</button></span>
                         </li>
                    })
                }
