@@ -1,16 +1,17 @@
-const COMMENTS = 'COMMENTS';
-module.exports = {
-  //增加一条新的留言
-  add(comment){
+var express = require('express');
+var app = express();
+//增加留言
+app.post('/comments',function(req,res){
 
-  },
-  //移除一个留言
-  delete(id){
+});
+//删除一条留言
+app.delete('/comments',function(req,res){
 
-  },
-  //查询所有留言 如果有，则转成对象数组，如果没有则返回空数组
-  // localStorage只能存放字符串
-  query(){
+});
+//获取所有的留言
+app.get('/comments',function(req,res){
 
-  }
-}
+});
+
+
+app.listen(9090);
