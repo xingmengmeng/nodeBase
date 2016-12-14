@@ -6,14 +6,19 @@ export default class CommentBox extends Component{
     //props 代表当前组件的属性对象
     constructor(props){
         super(props);
+        this.state = {comments:[]};
         // 在es6中使用此方法初始化一个状态对象
-        this.state = {comments:this.props.store.query()};
+        this.props.store.query((comments)=>{
+            this.setState({comments});
+        });
     }
     //向状态 comments里增加一个新的对象
     //在es6中，组件方法里的this默认向指定null
     addComment(comment){
-       var comments = this.props.store.add(comment);
-       this.setState({comments});
+       this.props.store.add(comment,(comments)=>{
+           this.setState({comments});
+       });
+
     }
     //删除留言
     deleteComment(id){
