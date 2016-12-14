@@ -4,5 +4,13 @@ module.exports = {
  output:{
      path:'./build',//指定打包后的文件存放目录
      filename:'bundle.js'//指定打包后的文件名
+ },
+ module:{
+     loaders:[
+         {
+             test:/\.js$/,
+             loader:'babel'
+         }
+     ]
  }
 }

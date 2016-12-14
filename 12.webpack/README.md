@@ -33,3 +33,29 @@ npm run build
 ```
 npm run dev
 ```
+
+
+## 2. 支持es6
+### 2.1 安装依赖包
+```
+npm install babel-core babel-loader babel-preset-es2015 --save-dev
+```
+### 2.2 修改webpack.config.js
+```
+
+ module:{
+     loaders:[
+         {
+             test:/\.js$/,
+             loader:'babel'
+         }
+     ]
+ }
+```
+
+### 2.3 配置 .babelrc
+```
+{
+  "presets":["es2015"]
+}
+```
