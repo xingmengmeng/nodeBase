@@ -1,0 +1,12 @@
+{
+  "name": "10.mongodb",
+  "version": "1.0.0",
+  "description": "先进入mongodb的安装目录bin下面\r 执行\r ```\r mongod --dbpath=E:\\mongo\r ```\r > dbpath指向一个真实存在的路径，win8 win10不建议放在盘\r 如果出现 waiting for connections就表示成功了\r 如果出现error就表示失败了",
+  "main": "1.mongodb.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "201610node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "ejs": "^2.5.3",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.coding.net/zhufengpeixun/201610node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
