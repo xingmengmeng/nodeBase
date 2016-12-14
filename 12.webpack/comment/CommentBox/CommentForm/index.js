@@ -4,6 +4,7 @@ export default class CommentForm extends Component{
         var name = this.refs.name.value;
         var content = this.refs.content.value;
         this.props.addComment({name,content});
+        this.refs.content.value = '';
     }
     render(){
         return (
@@ -22,7 +23,7 @@ export default class CommentForm extends Component{
                 </div>
                 <div className="form-group">
                     <div className="col-md-offset-1 col-md-11">
-                        <button onClick={this.addComment} type="button"className="btn btn-primary">发言</button>
+                        <button onClick={this.addComment.bind(this)} type="button"className="btn btn-primary">发言</button>
                     </div>
                 </div>
             </form>
