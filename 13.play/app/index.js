@@ -16,6 +16,10 @@ const IMAGE_DATA = [
         src: require('./images/banner3.jpg'),
         alt: 'banner3',
     },
+    {
+        src: require('./images/banner4.jpg'),
+        alt: 'banner4',
+    },
 ];
 
 render(
@@ -28,5 +32,5 @@ render(
         dots={true} //是否显示导航小点
         arrows={true}//是否显示上一张和下一张箭头
     />,
-    document.getElementById('root')
+    document.getElementById('app')
 );
