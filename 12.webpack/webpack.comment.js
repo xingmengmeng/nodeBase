@@ -19,6 +19,14 @@ module.exports = {
              loader:'babel',
              //加载的时候忽略掉此路径里的JS文件，会大大提高加载速度
              exclude:/node_modules/
+         },
+         {
+             test:/\.css$/,
+             loader:'style!css'
+         },
+         {
+             test:/\.(ttf|woff|woff2|svg|eot)$/,
+             loader:'url'
          }
      ]
  },
