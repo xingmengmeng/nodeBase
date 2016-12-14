@@ -8,8 +8,13 @@ module.exports = {
       });
   },
   //移除一个留言
-  delete(id){
-
+  delete(id,callback){
+        $.ajax({
+            url:'http://localhost:9090/comments/'+id,
+            method:'DELETE'
+        }).then(function(data){
+            callback(data);
+        });
   },
   //查询所有留言 如果有，则转成对象数组，如果没有则返回空数组
   // localStorage只能存放字符串

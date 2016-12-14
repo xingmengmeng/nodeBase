@@ -22,8 +22,9 @@ export default class CommentBox extends Component{
     }
     //删除留言
     deleteComment(id){
-        var comments = this.props.store.delete(id);
-        this.setState({comments});
+        this.props.store.delete(id,(comments)=>{
+            this.setState({comments});
+        });
     }
     //在es6中，render里的this指向的是当前组件的实例
     render(){

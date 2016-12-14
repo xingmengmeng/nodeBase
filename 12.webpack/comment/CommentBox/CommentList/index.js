@@ -10,7 +10,7 @@ export default class CommentList extends Component{
                {
                    this.props.comments.map((item,index)=>{
                         return <li key={index} className="list-group-item">
-                            {item.name}:{item.content}  <span className="pull-right">{moment(item.createAt).fromNow()}<button className="btn btn-danger btn-xs" onClick={()=>this.props.deleteComment(item.id)}>删除</button></span>
+                            {item.name}:{item.content}  <span className="pull-right">{moment(item.createAt).fromNow()}<button className="btn btn-danger btn-xs" onClick={()=>this.props.deleteComment(item._id)}>删除</button></span>
                         </li>
                    })
                }
