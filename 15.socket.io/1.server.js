@@ -48,7 +48,7 @@ io.on('connection',function(socket){
    socket.on('message',function(message){
        if(username){
            //服务器把消息放在消息数组里
-           messages.push(message);
+           messages.push({username,content:message,createAt:new Date()});
            //向所有连接的客户端发送消息 用户名 内容 时间
            io.emit('message',{username,content:message,createAt:new Date()});
        }else{

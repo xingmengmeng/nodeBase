@@ -54,8 +54,8 @@
      messages.forEach(function(message){
          html += `<li class="list-group-item">${message}</li>`;
      });*/
-     var html = messages.map(function(message){
-          return `<li class="list-group-item">${message}</li>`
+     var html = messages.map(function(messageObj){
+          return `${messageObj.username}:${messageObj.content} <span class="pull-right">${messageObj.createAt.toLocaleString()}</span>`
       }).join('');
       document.querySelector('#messages').innerHTML = html;
   });
