@@ -57,7 +57,6 @@
      var html = messages.map(function(message){
           return `<li class="list-group-item">${message}</li>`
       }).join('');
-     console.log('allMessages',html);
       document.querySelector('#messages').innerHTML = html;
   });
   function send(){

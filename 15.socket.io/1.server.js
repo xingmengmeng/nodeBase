@@ -53,6 +53,7 @@ io.on('connection',function(socket){
            io.emit('message',{username,content:message,createAt:new Date()});
        }else{
            username = message;
+           io.emit('message',{username:'系统',content:`欢迎 ${username}加入聊天室`,createAt:new Date()});
        }
 
    });
