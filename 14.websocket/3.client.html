@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //连接服务器
+   var socket = new WebSocket('ws://127.0.0.1:8080');
+   //注册服务器连接成功事件，因为浏览器JS没有事件发射器，所以只能通过增加属性的方法注册监听函数
+   socket.onopen = function(){
+        console.log('连接成功');
+        socket.send('服务器你好');
+   }
+   //注册监听服务器发过来的消息，回调函数第一个参数是event事件对象，event.data是服务器发过来的消息
+   socket.onmessage = function(event){
+       console.log(event.data);
+   }
+
+
+</script>
+</html>
