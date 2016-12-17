@@ -32,7 +32,6 @@ var io = require('socket.io')(server);
  * 2. 当点击事件发生后，执行回调函数，在回调函数里获得输入框的内容，然后把此内容发送给服务器
  * 3. 服务器收到此内容之后广播给所有的客户端  io.emit('message','聊天内容');
  * 4.客户端 监听 服务器的消息，向ul里添加一个新的li.
- *
  * 二、具名聊天
  * 三、私聊
  * 四、实现私人房间功能
@@ -41,19 +40,40 @@ var io = require('socket.io')(server);
  */
 //先在内存里存放所有的消息数组
 var messages = [];
+//搞一个对象存放所有的用户名和socket对象的对应关系
+var sockets = {};
 io.on('connection',function(socket){
      var username;//此用户的用户名
     //进入函数就表示客户端已经连接成功了
     //监听客户端发过来的消息
    socket.on('message',function(message){
        if(username){
-           //服务器把消息放在消息数组里
-           messages.push({username,content:message,createAt:new Date()});
-           //向所有连接的客户端发送消息 用户名 内容 时间
-           io.emit('message',{username,content:message,createAt:new Date()});
+           var regex = /^@([^ ]+) (.+)/;
+           var result = message.match(regex);
+           if(result){//如果有值是私聊
+               var toUser = result[1];//想私聊的对方的用户名找到对方的socket
+               var content = result[2];//私聊的内容
+               sockets[toUser].send({
+                   username:`<span class="user">${username}</span>对你说`,
+                   content,
+                   createAt:new Date()
+               });
+               socket.send({
+                   username:`你对<span class="user">${toUser}</span>`,
+                   content,
+                   createAt:new Date()
+               });
+           }else{
+//服务器把消息放在消息数组里
+               messages.push({username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
+               //向所有连接的客户端发送消息 用户名 内容 时间
+               io.emit('message',{username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
+           }
        }else{
            username = message;
-           io.emit('message',{username:'系统',content:`欢迎 ${username}加入聊天室`,createAt:new Date()});
+           //对此用户名和此socket的对应关系存放起来
+           sockets[username] = socket;
+           io.emit('message',{username:'<span class="user">系统</span>',content:`欢迎 <span class="user">${username}</span>加入聊天室`,createAt:new Date()});
        }
 
    });
@@ -61,7 +81,7 @@ io.on('connection',function(socket){
    socket.on('getAllMessages',function(){
        //服务器上客户端发射一件allMessages事件,
       socket.emit('allMessages',messages);
-      socket.send({username:'系统',content:'请输入呢称',createAt:new Date()});
+      socket.send({username:'<span class="user">系统</span>',content:'请输入呢称',createAt:new Date()});
    });
 });
 //当监听一个端口的时候服务器才算真正启动成功
