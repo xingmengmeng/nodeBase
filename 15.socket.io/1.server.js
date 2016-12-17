@@ -42,8 +42,11 @@ var io = require('socket.io')(server);
 var messages = [];
 //搞一个对象存放所有的用户名和socket对象的对应关系
 var sockets = {};
+
 io.on('connection',function(socket){
-     var username;//此用户的用户名
+    //当前socket对应的当前房间
+    var currentRoom;
+    var username;//此用户的用户名
     //进入函数就表示客户端已经连接成功了
     //监听客户端发过来的消息
    socket.on('message',function(message){
@@ -53,11 +56,13 @@ io.on('connection',function(socket){
            if(result){//如果有值是私聊
                var toUser = result[1];//想私聊的对方的用户名找到对方的socket
                var content = result[2];//私聊的内容
+               //向私聊的对方说话
                sockets[toUser].send({
                    username:`<span class="user">${username}</span>对你说`,
                    content,
                    createAt:new Date()
                });
+               //向自己说话
                socket.send({
                    username:`你对<span class="user">${toUser}</span>`,
                    content,
@@ -67,7 +72,13 @@ io.on('connection',function(socket){
 //服务器把消息放在消息数组里
                messages.push({username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
                //向所有连接的客户端发送消息 用户名 内容 时间
-               io.emit('message',{username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
+               console.log('currentRoom',currentRoom);
+               if(currentRoom){
+                   io.in(currentRoom).emit('message',{username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
+               }else{
+                   io.emit('message',{username:`<span class="user">${username}</span>`,content:message,createAt:new Date()});
+               }
+
            }
        }else{
            username = message;
@@ -82,6 +93,13 @@ io.on('connection',function(socket){
        //服务器上客户端发射一件allMessages事件,
       socket.emit('allMessages',messages);
       socket.send({username:'<span class="user">系统</span>',content:'请输入呢称',createAt:new Date()});
+   });
+   //监听客户端 让服务器进行某个房间的事件
+   socket.on('join',function(room){
+       //把当前的房间名缓存在currentRoom中
+       currentRoom = room;
+       //让当前socket进入某个房间
+       socket.join(room);
    });
 });
 //当监听一个端口的时候服务器才算真正启动成功
