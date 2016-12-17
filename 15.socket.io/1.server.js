@@ -9,6 +9,13 @@ app.get('/',function(req,res){
 });
 
 //app.listen();
+/*app.listen();
+app.listen = function listen() {
+    var server = http.createServer(this);
+    server.listen(8080);
+    return server.listen.apply(server, arguments);
+};*/
+
 //创建一个http服务器，把 app传进去作为监听函数,当有请求到来的时候此函数
 var server = require('http').createServer(app);
 //因为websocket服务器依赖http服务器，所以需要把server传进去
