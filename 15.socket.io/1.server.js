@@ -26,6 +26,19 @@ var server = require('http').createServer(app);
 //因为websocket服务器依赖http服务器，所以需要把server传进去
 var io = require('socket.io')(server);
 //websocket服务器监听客户端的请求，当有请求到来的时候执行回调函，并为每个请求创建一个socket实例
+/**
+ * 一、匿名聊天
+ * 1. 监听按钮的点击事件
+ * 2. 当点击事件发生后，执行回调函数，在回调函数里获得输入框的内容，然后把此内容发送给服务器
+ * 3. 服务器收到此内容之后广播给所有的客户端  io.emit('message','聊天内容');
+ * 4.客户端 监听 服务器的消息，向ul里添加一个新的li.
+ *
+ * 二、具名聊天
+ * 三、私聊
+ * 四、实现私人房间功能
+ * 五、聊天信息存入mongodb持久化
+ * 六、显示房间在线人员
+ */
 io.on('connection',function(socket){
     //进入函数就表示客户端已经连接成功了
     //监听客户端发过来的消息
