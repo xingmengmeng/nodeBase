@@ -42,18 +42,25 @@ var io = require('socket.io')(server);
 //先在内存里存放所有的消息数组
 var messages = [];
 io.on('connection',function(socket){
+     var username;//此用户的用户名
     //进入函数就表示客户端已经连接成功了
     //监听客户端发过来的消息
    socket.on('message',function(message){
-       //服务器把消息放在消息数组里
-       messages.push(message);
-       //向所有连接的客户端发送消息
-       io.emit('message',message);
+       if(username){
+           //服务器把消息放在消息数组里
+           messages.push(message);
+           //向所有连接的客户端发送消息 用户名 内容 时间
+           io.emit('message',{username,content:message,createAt:new Date()});
+       }else{
+           username = message;
+       }
+
    });
    //在服务器监听客户端发过来要求获得所有的消息事件,发回所有消息数组
    socket.on('getAllMessages',function(){
        //服务器上客户端发射一件allMessages事件,
       socket.emit('allMessages',messages);
+      socket.send({username:'系统',content:'请输入呢称',createAt:new Date()});
    });
 });
 //当监听一个端口的时候服务器才算真正启动成功

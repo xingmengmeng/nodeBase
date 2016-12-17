@@ -42,10 +42,9 @@
       //发射一个自定义的事件叫getAllMessages
       socket.emit('getAllMessages');
   });
-  socket.on('message',function(message){
-      console.log(message);
+  socket.on('message',function(messageObj){
     var li = document.createElement('li');
-    li.innerHTML = message;
+    li.innerHTML = `${messageObj.username}:${messageObj.content} <span class="pull-right">${messageObj.createAt.toLocaleString()}</span>`;
     li.className = 'list-group-item';
     document.querySelector('#messages').appendChild(li);
   });
@@ -53,7 +52,7 @@
   socket.on('allMessages',function(messages){
      /*var html = '';
      messages.forEach(function(message){
-         html + `<li class="list-group-item">${message}</li>`;
+         html += `<li class="list-group-item">${message}</li>`;
      });*/
      var html = messages.map(function(message){
           return `<li class="list-group-item">${message}</li>`
