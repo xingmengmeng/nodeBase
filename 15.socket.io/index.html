@@ -14,8 +14,8 @@
                     <h3>欢迎来到珠峰聊天室</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">欢迎来到珠峰聊天室</li>
+                    <ul class="list-group" id="messages">
+
                     </ul>
                 </div>
                 <div class="panel-footer">
@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" name="content" id="content">
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary btn-md" type="button">发言</button>
+                            <button class="btn btn-default " type="button" onclick="send()">发言</button>
                         </div>
                     </div>
                 </div>
@@ -38,12 +38,37 @@
     //  /代表当前路径
   var socket = io('http://localhost:8080/');
   socket.on('connect',function(){
-      console.log('连接服务器成功');
-      socket.send('服务器你好');
+      //console.log('连接服务器成功');
+      //发射一个自定义的事件叫getAllMessages
+      socket.emit('getAllMessages');
   });
   socket.on('message',function(message){
-       console.log(message);
+      console.log(message);
+    var li = document.createElement('li');
+    li.innerHTML = message;
+    li.className = 'list-group-item';
+    document.querySelector('#messages').appendChild(li);
   });
+  //监听服务器发过来所有消息对象
+  socket.on('allMessages',function(messages){
+     /*var html = '';
+     messages.forEach(function(message){
+         html + `<li class="list-group-item">${message}</li>`;
+     });*/
+     var html = messages.map(function(message){
+          return `<li class="list-group-item">${message}</li>`
+      }).join('');
+     console.log('allMessages',html);
+      document.querySelector('#messages').innerHTML = html;
+  });
+  function send(){
+      //先得到文本框的内容
+      var input = document.querySelector('#content');
+      var content = input.value;
+      //向服务器发送消息
+      socket.send(content);
+      input.value = '';
+  }
 </script>
 </body>
 </html>
