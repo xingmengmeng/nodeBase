@@ -1,6 +1,11 @@
 var express = require('express');
 var path = require('path');
 var app = express();
+/*app.get('/bootstrap.min.css',function(req,res){
+res.send('xx');
+});*/
+//使用这个中间件之后，此中间件原理是去public目录下找找有没有这个文件，如果有则读出来返回给客户端，如果没有则 next
+app.use(express.static(path.resolve('public')));
 //当客户端访问/的时候，返回一个index.html文件
 app.get('/',function(req,res){
     //从当前路径出发向下找找一个绝对路径
