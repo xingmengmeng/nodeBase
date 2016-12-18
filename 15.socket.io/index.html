@@ -99,7 +99,6 @@
            lis[i].className = '';
        }
         event.target.parentNode.className = 'active';
-        console.log(room);
         socket.emit('join',room);
     }
 </script>
