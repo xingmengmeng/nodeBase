@@ -20,6 +20,7 @@ module.exports = function(url,callback){
               name:$me.text(),
               url:$me.attr('href')
           }
+          console.log('读取:',item.name);
           items.push(item);
       });
       //调用回调函数，传入错误对象和数组

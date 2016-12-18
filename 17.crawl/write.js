@@ -8,6 +8,7 @@ module.exports = function (items,callback) {
   async.forEach(items,function(item,cb){
       //保存一个对象，保存后调用cb回调函数,表示当前任务执行完毕
     Movie.create(item,function(err,doc){
+        console.log('写入:',doc.name);
         cb(err,doc);
     })
   },callback);
