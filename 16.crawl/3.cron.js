@@ -11,14 +11,13 @@ var CronJob = require('cron').CronJob;
  *   2. 固定的值
  *   3. 1-5 代给一个区间的范围，是指1到5 1 2 3 4 5
  *   4.枚举值 1,3,5,7
+ *   5.  代表每隔多少执行一次
  * 2参数是 执行函数
  * 2016年12月18日11:54:07
  * 希望
  * 每周的周一和周五晚上6点执行一次
- *
- *
  */
-var job = new CronJob('1,3,5,7 * * * * * ',function(){
+var job = new CronJob('0 0 0 * * * ',function(){
     console.log(new Date().toLocaleString());
 });
 job.start();
