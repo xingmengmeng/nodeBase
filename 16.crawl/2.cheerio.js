@@ -14,13 +14,19 @@ var html = `
  * 3.然后打印出来
  * @type {*}
  */
-var $  = cheerio.load(html);
-var items = [];
-$('.keyword .list-title').each(function(){
-   var $me = $(this);
-   var item = {
-       name:$me.text()
-   }
-    items.push(item);
-})
-console.log(items);
+var fs = require('fs');
+//先读取文件的内容，指定文件的编码，那么得到的result就是一个字符串
+fs.readFile('./baidu.html','utf8',function(err,result){
+    var $  = cheerio.load(result);
+    var items = [];
+    //在此对象中寻找符合此条件的元素列表
+    $('.keyword .list-title').each(function(){
+        var $me = $(this);
+        var item = {
+            name:$me.text(),//得到这个元素的文本
+            url:$me.attr('href')//得到这个元素的href属性
+        }
+        items.push(item);
+    })
+    console.log(items);
+});
